@@ -2,9 +2,9 @@
 
 #include "vector.h"
 int main() {
-  Vector vec;
-  ConstructVector(&vec);
-  PushBackVector(&vec, 2);
-  PushBackVector(&vec, 5);
-  PrintVector(vec);
+  Vector vector;
+  ConstructVector(&vector);
+  PushBackVector(&vector, 2);
+  PushBackVector(&vector, 5);
+  PrintVector(vector);
 }
