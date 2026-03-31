@@ -1,2 +1,13 @@
 #include <stdio.h>
-int main() {}
+
+#include "linear_list_array.h"
+int main() {
+  LinearListArray list;
+  list = CreateLinearListArray();
+  InsertToLinearListArray(2, 0, &list);
+  InsertToLinearListArray(8, 0, &list);
+  InsertToLinearListArray(4, 1, &list);
+  InsertToLinearListArray(5, 3, &list);
+  PrintLinearListArray(list);
+  printf("%d\n", LocateLinearListArray(3, list));
+}
