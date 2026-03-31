@@ -31,8 +31,25 @@ unsigned LocateLinearListArray(int x, LinearListArray L) {
   while ((L.array[index] != x) && (index <= L.last)) ++index;
   return index;
 }
-int RetrieveLinearListArray(unsigned p, LinearListArray L) {}
-void DeleteInLinearListArray(unsigned p, LinearListArray* L) {}
+int RetrieveLinearListArray(unsigned p, LinearListArray L) {
+  assert(p >= 0);
+  assert(p <= L.last);
+  return L.array[p];
+}
+#ifndef SWAP
+#define SWAP
+void Swap(int* a, int* b) {
+  *a = *a + *b;
+  *b = *a - *b;
+  *a = *a - *b;
+}
+#endif
+void DeleteInLinearListArray(unsigned p, LinearListArray* L) {
+  assert(p >= 0);
+  assert(p <= L->last);
+  --L->last;
+  for (int i = p; i <= L->last; ++i) Swap(&L->array[i], &L->array[i + 1]);
+}
 int NextOfInLinearListArray(unsigned p, LinearListArray L) {}
 int PreviousOfInLinearListArray(unsigned p, LinearListArray L) {}
 void MakeNullLinearListArray(LinearListArray* L) {}

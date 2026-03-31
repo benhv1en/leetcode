@@ -9,5 +9,8 @@ int main() {
   InsertToLinearListArray(4, 1, &list);
   InsertToLinearListArray(5, 3, &list);
   PrintLinearListArray(list);
-  printf("%d\n", LocateLinearListArray(3, list));
+  DeleteInLinearListArray(2, &list);
+  PrintLinearListArray(list);
+  InsertToLinearListArray(7, 3, &list);
+  PrintLinearListArray(list);
 }
