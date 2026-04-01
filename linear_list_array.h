@@ -50,9 +50,20 @@ void DeleteInLinearListArray(unsigned p, LinearListArray* L) {
   --L->last;
   for (int i = p; i <= L->last; ++i) Swap(&L->array[i], &L->array[i + 1]);
 }
-int NextOfInLinearListArray(unsigned p, LinearListArray L) {}
-int PreviousOfInLinearListArray(unsigned p, LinearListArray L) {}
-void MakeNullLinearListArray(LinearListArray* L) {}
+int NextOfInLinearListArray(unsigned p, LinearListArray L) {
+  assert(p >= 0);
+  assert(p < L.last);
+  return L.array[p + 1];
+}
+int PreviousOfInLinearListArray(unsigned p, LinearListArray L) {
+  assert(p > 0);
+  assert(p <= L.last);
+  return L.array[p - 1];
+}
+void MakeNullLinearListArray(LinearListArray* L) {
+  free(L->array);
+  *L = CreateLinearListArray();
+}
 int FirstOfLinearListArray(LinearListArray L) {}
 void PrintLinearListArray(LinearListArray L) {
   printf("[");
