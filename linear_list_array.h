@@ -64,10 +64,14 @@ void MakeNullLinearListArray(LinearListArray* L) {
   free(L->array);
   *L = CreateLinearListArray();
 }
-int FirstOfLinearListArray(LinearListArray L) {}
+int FirstOfLinearListArray(LinearListArray L) { return L.array[0]; }
 void PrintLinearListArray(LinearListArray L) {
   printf("[");
   for (int i = 0; i <= L.last; ++i) printf("%d, ", L.array[i]);
   printf("\b\b]\n");
+}
+void FreeLinearListArray(LinearListArray* this_) {
+  this_->last = -1;
+  free(this_->array);
 }
 #endif
