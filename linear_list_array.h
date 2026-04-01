@@ -60,9 +60,10 @@ int PreviousOfInLinearListArray(unsigned p, LinearListArray L) {
   assert(p <= L.last);
   return L.array[p - 1];
 }
-void MakeNullLinearListArray(LinearListArray* L) {
+int MakeNullLinearListArray(LinearListArray* L) {
   free(L->array);
   *L = CreateLinearListArray();
+  return L->last;
 }
 int FirstOfLinearListArray(LinearListArray L) { return L.array[0]; }
 void PrintLinearListArray(LinearListArray L) {

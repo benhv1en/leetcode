@@ -13,4 +13,5 @@ int main() {
   PrintLinearListArray(list);
   InsertToLinearListArray(7, 3, &list);
   PrintLinearListArray(list);
+  FreeLinearListArray(&list);
 }
