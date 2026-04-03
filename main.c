@@ -1,17 +1,12 @@
 #include <stdio.h>
 
-#include "linear_list_array.h"
+#include "vector.h"
 int main() {
-  LinearListArray list;
-  list = CreateLinearListArray();
-  InsertToLinearListArray(2, 0, &list);
-  InsertToLinearListArray(8, 0, &list);
-  InsertToLinearListArray(4, 1, &list);
-  InsertToLinearListArray(5, 3, &list);
-  PrintLinearListArray(list);
-  DeleteInLinearListArray(2, &list);
-  PrintLinearListArray(list);
-  InsertToLinearListArray(7, 3, &list);
-  PrintLinearListArray(list);
-  FreeLinearListArray(&list);
+  Vector vec;
+  Vector_Assign(&vec, 3, 3);
+  Vector_Print(vec);
+  const int* cit = Vector_CREnd(vec);
+  printf("%x\n", cit);
+  const int* cit2 = Vector_CBegin(vec);
+  printf("%x\n", cit2);
 }
