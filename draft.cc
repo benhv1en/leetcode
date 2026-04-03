@@ -18,4 +18,5 @@ int main() {
   cout << vec;
   printf("%x\n", vec.data());
   cout << vec;
+  vec.emplace(vec.begin(), 3);
 }

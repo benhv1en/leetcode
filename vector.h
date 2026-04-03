@@ -5,6 +5,8 @@ typedef struct Vector {
   int* array;
 } Vector;
 void Vector_Construct(Vector* this_);
+void Vector_Destruct(Vector* this_);
+void Vector_Print(Vector this_);
 #endif
 #ifndef VECTOR_IMPLEMENTATION
 #define VECTOR_IMPLEMENTATION
@@ -49,4 +51,6 @@ int* Vector_Data(Vector this_) {
   assert(this_.size != 0);
   return &this_.array[0];
 }
+#include <stdarg.h>
+
 #endif
