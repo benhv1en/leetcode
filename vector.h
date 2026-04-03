@@ -22,6 +22,7 @@ void Vector_Print(Vector this_) {
   printf("\b\b]\n");
 }
 void Vector_Assign(Vector* this_, int number, int time) {
+  if (this_->size != 0) free(this_->array);
   this_->size = time;
   int* other_place = (int*)malloc(time * sizeof(int));
   for (int i = 0; i < time; ++i) {
@@ -51,6 +52,39 @@ int* Vector_Data(Vector this_) {
   assert(this_.size != 0);
   return &this_.array[0];
 }
-#include <stdarg.h>
-
+void Vector_Emplace(Vector* this_, int data) {
+  ++this_->size;
+  int* other_place = (int*)malloc(this_->size * sizeof(int));
+  other_place[0] = data;
+  for (int i = 1; i < this_->size; ++i) other_place[i] = this_->array[i - 1];
+  free(this_->array);
+  this_->array = other_place;
+}
+void Vector_EmplaceBack(Vector* this_, int data) {
+  int* other_place = (int*)malloc((this_->size + 1) * sizeof(int));
+  for (int i = 0; i < this_->size; ++i) other_place[i] = this_->array[i];
+  other_place[this_->size] = data;
+  free(this_->array);
+  this_->array = other_place;
+  ++this_->size;
+}
+#include <stdbool.h>
+bool Vector_Empty(Vector this_) { return this_.size == 0; }
+int* Vector_End(Vector this_) { return &this_.array[this_.size]; }
+#ifndef SWAP
+#define SWAP
+void Swap(int* a, int* b) {
+  *a = *a + *b;
+  *b = *a - *b;
+  *a = *a - *b;
+}
+#endif
+void Vector_Erase(Vector* this_, int* position) {
+  assert(position >= &this_->array[0]);
+  assert(position < &this_->array[this_->size]);
+  for (int* i = position; i < &this_->array[this_->size - 1]; ++i)
+    Swap(i, i + 1);
+  --this_->size;
+}
+int Vector_Front(Vector this_) { return this_.array[0]; }
 #endif

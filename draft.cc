@@ -1,3 +1,4 @@
+#include <array>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -12,11 +13,16 @@ ostream& operator<<(ostream& out_stream, vector<T> vector_) {
   return out_stream;
 }
 int main() {
+  array<int, 3> arr;
   vector<int> vec;
-  vec.assign(1, 0);
+  vec.assign(4, 5);
   printf("%x\n", &vec[0]);
   cout << vec;
   printf("%x\n", vec.data());
   cout << vec;
-  vec.emplace(vec.begin(), 3);
+  vec.emplace(vec.begin(), 4);
+  cout << vec;
+  vec = {1, 2, 3, 4, 5, 6};
+  vec.erase(vec.begin() + 3);
+  cout << vec.get_allocator();
 }
