@@ -16,5 +16,7 @@ int main() {
   Vector_Print(vec);
   Vector_Erase(&vec, Vector_Begin(vec) + 5);
   Vector_Print(vec);
-  Vector_Destruct(&vec);
+  // Vector_Destruct(&vec);
+  Vector_Insert(&vec, Vector_Begin(vec) + 3, 10);
+  Vector_Print(vec);
 }

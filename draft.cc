@@ -23,6 +23,9 @@ int main() {
   vec.emplace(vec.begin(), 4);
   cout << vec;
   vec = {1, 2, 3, 4, 5, 6};
+  cout << vec;
   vec.erase(vec.begin() + 3);
-  cout << vec.insert();
+  cout << vec;
+  vec.insert(vec.begin() + 5, 8);
+  cout << vec;
 }

@@ -82,13 +82,18 @@ void Vector_Erase(Vector* this_, int* position) {
   --this_->size;
 }
 int Vector_Front(const Vector this_) { return this_.array[0]; }
-int Vector_Insert(Vector* this_, const int data, const int* position) {
-  assert(position >= 0);
+void Vector_Insert(Vector* this_, int* position, const int data) {
+  assert(position >= &this_->array[0]);
   assert(position < &this_->array[this_->size]);
   ++this_->size;
   int* other_place = (int*)malloc(this_->size * sizeof(int));
-  // for (int* i = &other_place[0]; i < position; ++i) *i = this_->array[*i];
-  // other_place[*position] = data;
-  // for (int* i = position + 1; i < this_->size; ++i) *i = this_->array[]
+  int index = 0;
+  for (int* i = &other_place[0]; i != position; ++i, ++index)
+    *i = this_->array[index];
+  other_place[index] = data;
+  for (int i = index + 1; i < this_->size; ++i)
+    other_place[i] = this_->array[i - 1];
+  free(this_->array);
+  this_->array = other_place;
 }
 #endif
