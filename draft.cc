@@ -24,5 +24,5 @@ int main() {
   cout << vec;
   vec = {1, 2, 3, 4, 5, 6};
   vec.erase(vec.begin() + 3);
-  cout << vec.get_allocator();
+  cout << vec.insert();
 }

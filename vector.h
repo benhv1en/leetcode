@@ -16,12 +16,12 @@ void Vector_Construct(Vector* this_) {
   this_->array = (int*)malloc(sizeof(int));
 }
 void Vector_Destruct(Vector* this_) { free(this_->array); }
-void Vector_Print(Vector this_) {
+void Vector_Print(const Vector this_) {
   printf("[");
   for (int i = 0; i < this_.size; ++i) printf("%d, ", this_.array[i]);
   printf("\b\b]\n");
 }
-void Vector_Assign(Vector* this_, int number, int time) {
+void Vector_Assign(Vector* this_, const int number, const int time) {
   if (this_->size != 0) free(this_->array);
   this_->size = time;
   int* other_place = (int*)malloc(time * sizeof(int));
@@ -31,28 +31,30 @@ void Vector_Assign(Vector* this_, int number, int time) {
   this_->array = other_place;
 };
 #include <assert.h>
-int Vector_At(Vector this_, int index) {
+int Vector_At(const Vector this_, const int index) {
   assert(index >= 0);
   assert(index < this_.size);
   return this_.array[index];
 }
-int Vector_Back(Vector this_) { return this_.array[this_.size - 1]; }
-int* Vector_Begin(Vector this_) { return &this_.array[0]; }
-size_t Vector_Capacity(Vector this_) { return this_.size; }
-const int* Vector_CBegin(Vector this_) { return &this_.array[0]; }
-const int* Vector_CEnd(Vector this_) { return &this_.array[this_.size]; }
+int Vector_Back(const Vector this_) { return this_.array[this_.size - 1]; }
+int* Vector_Begin(const Vector this_) { return &this_.array[0]; }
+size_t Vector_Capacity(const Vector this_) { return this_.size; }
+const int* Vector_CBegin(const Vector this_) { return &this_.array[0]; }
+const int* Vector_CEnd(const Vector this_) { return &this_.array[this_.size]; }
 void Vector_Clear(Vector* this_) {
   this_->size = 0;
   free(this_->array);
   this_->array = (int*)malloc(sizeof(int));
 }
-const int* Vector_CRBegin(Vector this_) { return &this_.array[this_.size - 1]; }
-const int* Vector_CREnd(Vector this_) { return &this_.array[-1]; }
-int* Vector_Data(Vector this_) {
+const int* Vector_CRBegin(const Vector this_) {
+  return &this_.array[this_.size - 1];
+}
+const int* Vector_CREnd(const Vector this_) { return &this_.array[-1]; }
+int* Vector_Data(const Vector this_) {
   assert(this_.size != 0);
   return &this_.array[0];
 }
-void Vector_Emplace(Vector* this_, int data) {
+void Vector_Emplace(Vector* this_, const int data) {
   ++this_->size;
   int* other_place = (int*)malloc(this_->size * sizeof(int));
   other_place[0] = data;
@@ -60,7 +62,7 @@ void Vector_Emplace(Vector* this_, int data) {
   free(this_->array);
   this_->array = other_place;
 }
-void Vector_EmplaceBack(Vector* this_, int data) {
+void Vector_EmplaceBack(Vector* this_, const int data) {
   int* other_place = (int*)malloc((this_->size + 1) * sizeof(int));
   for (int i = 0; i < this_->size; ++i) other_place[i] = this_->array[i];
   other_place[this_->size] = data;
@@ -69,16 +71,9 @@ void Vector_EmplaceBack(Vector* this_, int data) {
   ++this_->size;
 }
 #include <stdbool.h>
-bool Vector_Empty(Vector this_) { return this_.size == 0; }
-int* Vector_End(Vector this_) { return &this_.array[this_.size]; }
-#ifndef SWAP
-#define SWAP
-void Swap(int* a, int* b) {
-  *a = *a + *b;
-  *b = *a - *b;
-  *a = *a - *b;
-}
-#endif
+bool Vector_Empty(const Vector this_) { return this_.size == 0; }
+int* Vector_End(const Vector this_) { return &this_.array[this_.size]; }
+#include "swap.h"
 void Vector_Erase(Vector* this_, int* position) {
   assert(position >= &this_->array[0]);
   assert(position < &this_->array[this_->size]);
@@ -86,5 +81,14 @@ void Vector_Erase(Vector* this_, int* position) {
     Swap(i, i + 1);
   --this_->size;
 }
-int Vector_Front(Vector this_) { return this_.array[0]; }
+int Vector_Front(const Vector this_) { return this_.array[0]; }
+int Vector_Insert(Vector* this_, const int data, const int* position) {
+  assert(position >= 0);
+  assert(position < &this_->array[this_->size]);
+  ++this_->size;
+  int* other_place = (int*)malloc(this_->size * sizeof(int));
+  // for (int* i = &other_place[0]; i < position; ++i) *i = this_->array[*i];
+  // other_place[*position] = data;
+  // for (int* i = position + 1; i < this_->size; ++i) *i = this_->array[]
+}
 #endif
