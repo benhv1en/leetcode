@@ -7,6 +7,34 @@ typedef struct Vector {
 void Vector_Construct(Vector* this_);
 void Vector_Destruct(Vector* this_);
 void Vector_Print(const Vector this_);
+void Vector_Assign(Vector* this_, const int number, const int time);
+int Vector_At(const Vector this_, const int index);
+int Vector_Back(const Vector this_);
+int* Vector_Begin(const Vector this_);
+size_t Vector_Capacity(const Vector this_);
+const int* Vector_CBegin(const Vector this_);
+const int* Vector_CEnd(const Vector this_);
+void Vector_Clear(Vector* this_);
+const int* Vector_CRBegin(const Vector this_);
+const int* Vector_CREnd(const Vector this_);
+int* Vector_Data(const Vector this_);
+void Vector_Emplace(Vector* this_, const int data);
+void Vector_EmplaceBack(Vector* this_, const int data);
+#include <stdbool.h>
+bool Vector_Empty(const Vector this_);
+int* Vector_End(const Vector this_);
+void Vector_Erase(Vector* this_, int* position);
+int Vector_Front(const Vector this_);
+void Vector_Insert(Vector* this_, const int* position, const int data);
+void Vector_PopBack(Vector* this_);
+void Vector_PushBack(Vector* this_, const int data);
+int* Vector_RBegin(const Vector this_);
+int* Vector_REnd(const Vector this_);
+void Vector_Reserve(Vector* this_, const int capacity);
+void Vector_Resize(Vector* this_, const int size);
+void Vector_ShrinkToFit(Vector* this_, const int capacity);
+size_t Vector_Size(const Vector this_);
+void Vector_Swap(Vector* this_, Vector* other);
 #endif
 #ifndef VECTOR_IMPLEMENTATION
 #define VECTOR_IMPLEMENTATION
@@ -73,7 +101,6 @@ void Vector_EmplaceBack(Vector* this_, const int data) {
   this_->array = other_place;
   ++this_->size;
 }
-#include <stdbool.h>
 bool Vector_Empty(const Vector this_) { return this_.size == 0; }
 int* Vector_End(const Vector this_) { return &this_.array[this_.size]; }
 #include "swap.h"
@@ -87,14 +114,12 @@ void Vector_Erase(Vector* this_, int* position) {
 int Vector_Front(const Vector this_) { return this_.array[0]; }
 void Vector_Insert(Vector* this_, const int* position, const int data) {
   assert(position >= &this_->array[0]);
-  assert(position < &this_->array[this_->size]);
+  assert(position <= &this_->array[this_->size]);
   ++this_->size;
   int* other_place = (int*)malloc(this_->size * sizeof(int));
   int index = 0;
-  for (int* i = &this_->array[0]; i < position; ++i, ++index) {
-    printf("other_place: %x\nposition: %x\n", other_place, position);
+  for (int* i = &this_->array[0]; i < position; ++i, ++index)
     other_place[index] = *i;
-  }
   other_place[index] = data;
   for (int i = index + 1; i < this_->size; ++i)
     other_place[i] = this_->array[i - 1];
