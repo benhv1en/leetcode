@@ -19,7 +19,10 @@ void Vector_Destruct(Vector* this_) { free(this_->array); }
 void Vector_Print(const Vector this_) {
   printf("[");
   for (int i = 0; i < this_.size; ++i) printf("%d, ", this_.array[i]);
-  printf("\b\b]\n");
+  if (this_.size == 0)
+    printf("]\n");
+  else
+    printf("\b\b]\n");
 }
 void Vector_Assign(Vector* this_, const int number, const int time) {
   if (this_->size != 0) free(this_->array);
@@ -138,7 +141,9 @@ void Vector_ShrinkToFit(Vector* this_, const int capacity) {
 }
 size_t Vector_Size(const Vector this_) { return this_.size; }
 void Vector_Swap(Vector* this_, Vector* other) {
-  Swap(this_->size, other->size);
-  int* temp = (int*)malloc(this_->size * sizeof(int))
+  int* temporary = this_->array;
+  this_->array = other->array;
+  other->array = temporary;
+  Swap(&this_->size, &other->size);
 }
 #endif

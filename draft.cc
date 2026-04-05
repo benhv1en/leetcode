@@ -33,5 +33,4 @@ int main() {
   vec.reserve(10);
   cout << vec;
   vec.shrink_to_fit();
-  cout << vec;
 }

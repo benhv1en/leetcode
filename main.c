@@ -33,4 +33,17 @@ int main() {
   Vector_Resize(&vec, 9);
   Vector_Print(vec);
   Vector_Destruct(&vec);
+
+  Vector vec1, vec2;
+  Vector_Construct(&vec1);
+  Vector_Print(vec1);
+  Vector_Construct(&vec2);
+  Vector_Print(vec2);
+  Vector_Assign(&vec1, 6, 9);
+  Vector_Print(vec1);
+  Vector_Assign(&vec2, 9, 6);
+  Vector_Print(vec2);
+  Vector_Swap(&vec1, &vec2);
+  Vector_Print(vec1);
+  Vector_Print(vec2);
 }
