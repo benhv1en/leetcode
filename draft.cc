@@ -16,9 +16,9 @@ int main() {
   array<int, 3> arr;
   vector<int> vec;
   vec.assign(4, 5);
-  printf("%x\n", &vec[0]);
+  printf("%n\n", &vec[0]);
   cout << vec;
-  printf("%x\n", vec.data());
+  printf("%n\n", vec.data());
   cout << vec;
   vec.emplace(vec.begin(), 4);
   cout << vec;
@@ -27,5 +27,11 @@ int main() {
   vec.erase(vec.begin() + 3);
   cout << vec;
   vec.insert(vec.begin() + 5, 8);
+  cout << vec;
+  vec.resize(10);
+  cout << vec;
+  vec.reserve(10);
+  cout << vec;
+  vec.shrink_to_fit();
   cout << vec;
 }

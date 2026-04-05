@@ -6,7 +6,7 @@ typedef struct Vector {
 } Vector;
 void Vector_Construct(Vector* this_);
 void Vector_Destruct(Vector* this_);
-void Vector_Print(Vector this_);
+void Vector_Print(const Vector this_);
 #endif
 #ifndef VECTOR_IMPLEMENTATION
 #define VECTOR_IMPLEMENTATION
@@ -82,18 +82,63 @@ void Vector_Erase(Vector* this_, int* position) {
   --this_->size;
 }
 int Vector_Front(const Vector this_) { return this_.array[0]; }
-void Vector_Insert(Vector* this_, int* position, const int data) {
+void Vector_Insert(Vector* this_, const int* position, const int data) {
   assert(position >= &this_->array[0]);
   assert(position < &this_->array[this_->size]);
   ++this_->size;
   int* other_place = (int*)malloc(this_->size * sizeof(int));
   int index = 0;
-  for (int* i = &other_place[0]; i != position; ++i, ++index)
-    *i = this_->array[index];
+  for (int* i = &this_->array[0]; i < position; ++i, ++index) {
+    printf("other_place: %x\nposition: %x\n", other_place, position);
+    other_place[index] = *i;
+  }
   other_place[index] = data;
   for (int i = index + 1; i < this_->size; ++i)
     other_place[i] = this_->array[i - 1];
   free(this_->array);
   this_->array = other_place;
+}
+void Vector_PopBack(Vector* this_) { --this_->size; }
+void Vector_PushBack(Vector* this_, const int data) {
+  ++this_->size;
+  int* other_place = (int*)malloc(this_->size * sizeof(int));
+  for (int i = 0; i < this_->size - 1; ++i) other_place[i] = this_->array[i];
+  other_place[this_->size - 1] = data;
+  free(this_->array);
+  this_->array = other_place;
+}
+int* Vector_RBegin(const Vector this_) { return &this_.array[this_.size - 1]; }
+int* Vector_REnd(const Vector this_) { return &this_.array[-1]; }
+void Vector_Reserve(Vector* this_, const int capacity) {
+  if (capacity <= this_->size) return;
+  int* other_place = (int*)malloc(capacity * sizeof(int));
+  for (int i = 0; i < this_->size; ++i) other_place[i] = this_->array[i];
+  free(this_->array);
+  this_->array = other_place;
+  this_->size = capacity;
+}
+void Vector_Resize(Vector* this_, const int size) {
+  int* other_place = (int*)malloc(size * sizeof(int));
+  if (size > this_->size) {
+    for (int i = 0; i < this_->size; ++i) other_place[i] = this_->array[i];
+    for (int i = this_->size; i < size; ++i) other_place[i] = 0;
+  } else
+    for (int i = 0; i < size; ++i) other_place[i] = this_->array[i];
+  free(this_->array);
+  this_->array = other_place;
+  this_->size = size;
+}
+void Vector_ShrinkToFit(Vector* this_, const int capacity) {
+  if (capacity >= this_->size) return;
+  int* other_place = (int*)malloc(capacity * sizeof(int));
+  for (int i = 0; i < capacity; ++i) other_place[i] = this_->array[i];
+  free(this_->array);
+  this_->array = other_place;
+  this_->size = capacity;
+}
+size_t Vector_Size(const Vector this_) { return this_.size; }
+void Vector_Swap(Vector* this_, Vector* other) {
+  Swap(this_->size, other->size);
+  int* temp = (int*)malloc(this_->size * sizeof(int))
 }
 #endif
