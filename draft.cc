@@ -14,23 +14,8 @@ ostream& operator<<(ostream& out_stream, vector<T> vector_) {
 }
 int main() {
   array<int, 3> arr;
-  vector<int> vec;
-  vec.assign(4, 5);
-  printf("%n\n", &vec[0]);
-  cout << vec;
-  printf("%n\n", vec.data());
-  cout << vec;
-  vec.emplace(vec.begin(), 4);
-  cout << vec;
-  vec = {1, 2, 3, 4, 5, 6};
-  cout << vec;
-  vec.erase(vec.begin() + 3);
-  cout << vec;
-  vec.insert(vec.begin() + 5, 8);
-  cout << vec;
-  vec.resize(10);
-  cout << vec;
-  vec.reserve(10);
-  cout << vec;
-  vec.shrink_to_fit();
+  arr.at(4);
+  arr.back();
+  arr.begin();
+  arr.cbegin();
 }
