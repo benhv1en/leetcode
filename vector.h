@@ -1,7 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 typedef struct Vector {
-  int size;
+  size_t size;
   int* array;
 } Vector;
 void Vector_Construct(Vector* this_);
