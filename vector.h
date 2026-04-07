@@ -23,7 +23,7 @@ void Vector_EmplaceBack(Vector* this_, const int data);
 #include <stdbool.h>
 bool Vector_Empty(const Vector this_);
 int* Vector_End(const Vector this_);
-void Vector_Erase(Vector* this_, int* position);
+void Vector_Erase(Vector* this_, const int* position);
 int Vector_Front(const Vector this_);
 void Vector_Insert(Vector* this_, const int* position, const int data);
 void Vector_PopBack(Vector* this_);
@@ -104,7 +104,7 @@ void Vector_EmplaceBack(Vector* this_, const int data) {
 bool Vector_Empty(const Vector this_) { return this_.size == 0; }
 int* Vector_End(const Vector this_) { return &this_.array[this_.size]; }
 #include "swap.h"
-void Vector_Erase(Vector* this_, int* position) {
+void Vector_Erase(Vector* this_, const int* position) {
   assert(position >= &this_->array[0]);
   assert(position < &this_->array[this_->size]);
   for (int* i = position; i < &this_->array[this_->size - 1]; ++i)
