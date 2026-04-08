@@ -18,4 +18,5 @@ int main() {
   arr.back();
   arr.begin();
   arr.cbegin();
+  arr.fill
 }
